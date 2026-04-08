@@ -44,6 +44,7 @@ type Params = {
 };
 
 export function generateMetadata({ params }: Params): Metadata {
+     if (!params?.slug) return {};
   const post = getPostBySlug(params.slug);
 
   if (!post) {
@@ -56,7 +57,7 @@ export function generateMetadata({ params }: Params): Metadata {
     title,
     openGraph: {
       title,
-      images: [post.ogImage.url],
+      images: post.ogImage?.url ? [post.ogImage.url] : [],
     },
   };
 }
